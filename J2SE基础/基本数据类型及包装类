@@ -1,0 +1,9 @@
+1. 九种基本数据类型的大小，以及他们的封装类。 
+图片: https://uploader.shimo.im/f/FsL3iiLGLdv7Z4qZ
+封装类：Byte、Short、Integer、Long、Float、Double、Character、Boolean、Void
+
+2. 有了基本数据类型，为什么还需要包装类型？
+装箱：把基本的数据类型装换成对应的包装类型。Integer.valueOf 方法来装箱
+拆箱：把包装类型转化为基本数据类型。基本数据类型 名称= 对应的包装类型
+java 是一个面向对象的语言，而基本的数据类型，不具备面向对象的特性。
+缓存值：对象缓存。
