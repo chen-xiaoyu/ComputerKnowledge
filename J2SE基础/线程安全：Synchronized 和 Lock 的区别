@@ -1,0 +1,9 @@
+1. lock 是一个接口，而 synchronized 是 java 的一个关键字，synchronized 是内置的语言实现；可以放在方法前面；也可以放在代码块前面，但需要指定上锁的对象。通常和wait，notify，notifyAll一块使用。
+wait：释放占有的对象锁，释放CPU。 
+sleep：则是释放CPU，但是不释放占有的对象锁。
+notify：唤醒等待队列中的一个线程，使其获得锁进行访问。
+notifyAll：唤醒等待队列中等待该对象锁的全部线程，让其竞争去获得锁。
+2. synchronized 在发生异常时候会自动释放占有的锁，因此不会出现死锁；而 lock 发生异常时候，不会主动释放占有的锁，必须手动 unlock 来释放锁，可能引起死锁的发生。（所以最好将同步代码块用 try catch 包起来，finally 中写入 unlock，避免死锁的发生。） 
+3. lock 等待锁过程中可以用 interrupt 来终断等待，而 synchronized 只能等待锁的释放，不能响应中断； 
+4. lock 可以通过 trylock 来知道有没有获取锁，而 synchronized 不能； 
+5. Lock 可以提高多个线程进行读操作的效率。
