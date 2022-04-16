@@ -1,0 +1,33 @@
+## 三者之间的区别
+###（1）从存储数据结构分析
+ArrayList、Vector 
+是基于数组实现的，利用下标查改较为方便。（可扩展说明）需要频繁读取集合中的元素时，更推荐使用 
+ArrayList。  
+LinkedList 是基于双向链表实现的，增删较为迅速。在插入和删除操作较多时，更推荐使用 LinkedList。
+###（2）从继承上
+他们均实现了 List 接口。
+###（3）从并发安全上
+Vector：线程安全,使用 Synchronized 来实现线程同步。  
+ArrayList：非线程安全  
+LinkedList:非线程安全
+###（4）扩容
+ArrayList 在元素填满容器时会自动扩充容器大小的 50%，而 Vector 则是 100%，因此 ArrayList 更节省空间。
+###（5）随机访问效率
+ArrayList 比 LinkedList 在随机访问的时候效率要高。因为 LinkedList 是线性的数据存储方式，所以需要移动指针从前往后依次查找。
+###（6）增加和删除效率
+在非首尾的增加和删除操作，LinkedList 要比 ArrayList 效率要高，因为 ArrayList 增删操作要影响数组内其他数据的下标。
+
+
+PS：Vector 已逐渐被弃用转而使用 ArrayList 的原因：（效率、空间）
+Vector 类的所有方法都是同步的(synchronized)，因此效率低；
+ArrayList 在元素填满容器时会自动扩充容器大小的 50%，而 Vector 则是 100%，因此 ArrayList 更节省空间。
+
+## ArrayList与LinkedList的区别
+1. 从存储数据结构分析
+   ArrayList的实现是基于数组来实现的，LinkedList的基于双向链表来实现。这两个数据结构的逻辑关系是不一样，当然物理存储的方式也会是不一样。
+2. 内存
+   LinkedList比ArrayList更占内存，因为LinkedList的节点除了存储数据，还存储了两个引用，一个指向前一个元素，一个指向后一个元素。
+3. 随机访问效率
+   对于随机访问，ArrayList要优于LinkedList。因为 LinkedList 是线性的数据存储方式，所以需要移动指针从前往后依次查找。
+4. 增加和删除效率
+   对于插入和删除操作，LinkedList优于ArrayList（理论上），实际并非如此（实际上ArrayList不论是插入还是删除效率，在元素数量趋多时，都是要优于LinkedList的），因这其中涉及数组与链表在元素操作方式、时间与空间上的复杂度计算问题，所以具体问题须具体分析和佐证。

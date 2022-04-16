@@ -1,0 +1,12 @@
+# 线程
+一个CPU会跑很多线程，是轮流进行的，一段时间执行A线程，一段时间执行B线程。
+### 线程启动的三种方式
+1. new Thread().start();
+2. new Thread(Runnable).start();
+3. 通过线程池启动一个新线程
+Executor.newCachedThreadPoll()或者FutureTask+Callable
+
+## 线程方法
+1. Sleep
+2. Yield: 正在执行的当前线程停止下来进入等待队列
+3. join: 当前线程加入调用Join的线程

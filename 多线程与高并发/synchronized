@@ -1,0 +1,16 @@
+# synchronized关键字
+保证同一时刻只允许一条线程操作   
+锁定当前对象synchronized(this)
+## 1）synchronized 方法
+由于 java 的每个对象都有一个内置锁，当用synchronized此关键字修饰方法时， 内置锁会保护整个方法。在调用该方法前，需要获得内置锁，否则就处于阻塞状态。而方法一旦开始执行，就会独占该锁，直到方法执行完成返回后释放该锁，然后阻塞的线程就获取锁，然后调用方法执行。
+
+注：synchronized 关键字也可以修饰静态方法，此时如果调用该静态方法，将会锁住整个类。   
+缺点：将方法声明为synchronized会影响效率。例如，如果我们想线程类的run()
+方法定义为synchronized的，则在线程的整个生命周期内，它都会一直运行，且它无法调用本类任何synchronized方法，因为一直占用锁。所以我们可以将访问成员变量部分的代码定义为单独的方法，然后将这个方法声明为synchronized即可。
+
+## 2）synchronized 块
+可以对任意代码块声明为 synchronized，灵活性较高。根据实际的需要对于想要添加锁的代码或类加锁。
+
+### synchronized(T.class)
+static没有this对象
+public synchronized static void m() 等同于synchronized(T.class)
