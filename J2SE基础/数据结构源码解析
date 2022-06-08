@@ -1,0 +1,8 @@
+### CopyOnWriteArrayList
+
+
+### CopyOnWriteHashSet
+内部定义的CopyOnWriteArrayList变量 
+
+### ConcurrentHashMap
+分段锁：Segment自带锁。ConcurrentHashMap只要访问的不是同一个Segment，就可以并发操作

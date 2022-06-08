@@ -10,3 +10,6 @@ Executor.newCachedThreadPoll()或者FutureTask+Callable
 1. Sleep
 2. Yield: 正在执行的当前线程停止下来进入等待队列
 3. join: 当前线程加入调用Join的线程
+
+#同步业务异常
+业务用同一个订单用同一个锁，此时同步分账未成功，而又进行了退款。由于瞬间单量太多，高并发出现异常，进行限流，此时会导致该单子的退款影响了正向的分账。

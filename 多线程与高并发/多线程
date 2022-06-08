@@ -1,0 +1,34 @@
+### 多线程-原子性
+##### 例子
+###### 多线程往map里面放值元素，每个key只能放一次。
+线程安全用：ConcurrentHashMap。   
+但注意并不能保证get和put是同一个操作，否则会导致线程不安全。
+private ConcurrentHashMap<String, String> threadSafeMap = new ConcurrentHashMap<String, String>();
+public void oncePutElement(String key, String value){
+    String ifAbsent = threadSafeMap.putIfAbsent(key, value);
+    if(null == ifAbsent){
+      System.out.println("已经存在")
+    }
+}
+###### 数据key不存在，无法从缓存读，需要去db
+对于大量的数据，此时并发去查db会导致库性能出错。需要从大量的线程筛选出第一个线程，再去查。就可以用到多线程的原子性。
+
+### 多线程-中断处理
+由于调用sleep()方法清楚状态标志位，所以需要在捕捉线程异常是，重新重置中断标志位，否则线程会继续运行下去。
+
+### 多线程-异常处理
+主线程catch不到子线程的异常的。
+
+### 多线程-线程池
+拒绝策略： handler产生的。
+JAVA有4种handler:
+![img.png](img.png)
+*AbortPolicy *拒绝策略：这种策略在拒绝任务时，会直接抛出一个类型为RejectedExecutionException 的 RuntimeException，让你感知到任务被拒绝了，于是你便可以根据业务逻辑选择重试或者放弃提交等策略。
+DiscardPolicy 拒绝策略：这种策略是当任务提交时直接将刚提交的任务丢弃，而且不会给与任何提示通知，所以这种策略使用要慎重，因为有一定的风险，对我们来说根本不知道提交的任务有没有被丢弃
+DiscardOldestPolicy 拒绝策略：这种策略和上面相似。不过它丢弃的是队列中的头节点，也就是存活时间最久的
+CallerRunsPolicy 拒绝策略：这种策略算是最完善的相对于其他三个，当线程池无能力处理当前任务时，会将这个任务的执行权交予提交任务的线程来执行，也就是谁提交谁负责，这样的话提交的任务就不会被丢弃而造成业务损失，同时这种谁提交谁负责的策略必须让提交线程来负责执行，如果任务比较耗时，那么这段时间内提交任务的线程也会处于忙碌状态而无法继续提交任务，这样也就减缓了任务的提交速度，这相当于一个负反馈。也有利于线程池中的线程来消化任务
+
+### 多线程-线程池初始化
+线程池命名: 便于排除问题时查看，否则线程池都是thread1,thread2,无法找到对应的线程
+线程池关闭: 如果不关闭，就一直运行。代码发布时重启系统时，因为系统一直在运行就无法判断是否要关闭线程池。判断是否要关闭看是否有守护线程在运行，如果30s无法关闭，就kill被强制关闭，导致任务执行中断。
+调用了shutdown()之后，之后的线程请求就不会再处理了
